@@ -10,7 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <script src="{{ url_for('static', filename='js/jscript.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jsconv.js') }}"></script>
          <style>
             body{background-color : #C6E2FF;}
         </style>
@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="thumbnail">
-                    <img id="myImg" src="static/uploads/{{imageCourante}}" alt="image de base..." style="width:300px;height:300px">
+                    <img id="myImg" src="static/uploads/{{currentImage}}" alt="image de base..." style="width:300px;height:300px">
                 </div>
               </div>
               <div class="col-md-4">
@@ -43,8 +43,8 @@
             <div class="row">
                 <div class="col-md-8">
 
-                    <form id="process-type2" action='' method="post">
-                        <input id="process-type-btn2" type="button" name="convolution" value="Convolution">
+                    <form id="process-type" action='' method="post">
+                        <input id="process-type-btn" type="button" name="convolution" value="Convolution">
                     </form>
 
                     <p><a href="{{ url_for('upload_file') }}">Index</a></p>

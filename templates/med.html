@@ -10,7 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <script src="{{ url_for('static', filename='js/jscript.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jsmed.js') }}"></script>
          <style>
             body{background-color : #C6E2FF;}
         </style>
@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="thumbnail">
-                    <img id="myImg" src="static/uploads/{{imageCourante}}" alt="image de base..." style="width:300px;height:300px">
+                    <img id="myImg" src="static/uploads/{{currentImage}}" alt="image de base..." style="width:300px;height:300px">
                 </div>
               </div>
               <div class="col-md-4">
@@ -48,6 +48,20 @@
                     </form>
 
                     <p><a href="{{ url_for('upload_file') }}">Index</a></p>
+
+                    Choisir taille matrix:
+                    <select id="select" name="taille">
+                        <option value="3">3x3</option>
+                        <option value="5">5x5</option>
+                        <option value="9">9x9</option>
+                    </select>
+
+                    Choisir type de bord:
+                    <select id="select2" name="bord">
+                        <option value="reflet">Reflet</option>
+                        <option value="mirror">Miroir</option>
+                        <option value="symetrique">Symetrique</option>
+                    </select>
 
                 </div>
 
