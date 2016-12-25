@@ -5,8 +5,9 @@ import matplotlib.image as mpimg
 
 
 print "Filtre Median Debut"
+image_name = sys.argv[1]
 
-uploadedImage = mpimg.imread(sys.argv[1])
+uploadedImage = mpimg.imread(image_name)
 
 shape = uploadedImage.shape # nombre de lignes, colones et canal
 
@@ -40,15 +41,15 @@ for i in range(shape[0]-1):
                 n_pixel_noisy[i,j,1] = uploadedImage[i,j,1]
                 n_pixel_noisy[i,j,2] = uploadedImage[i,j,2]
 
-mpimg.imsave('static/uploads/ImageFilter.png', uploadedImage)
+mpimg.imsave(image_name+'ImageFilter.png', uploadedImage)
 
-mpimg.imsave('static/uploads/Noise.png', n_pixel_noisy)
+mpimg.imsave(image_name+'Noise.png', n_pixel_noisy)
 
 
 hist = np.histogram(n_pixel_noisy, bins=np.arange(0, 256))
 plt.plot(hist[1][:-1], hist[0], lw=2)
 plt.title("Histogram")
-plt.savefig('static/uploads/Histogram.png')
+plt.savefig(image_name+'Histogram.png')
 #plt.show()
 
 print "Filtre Median Fin"

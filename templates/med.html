@@ -8,12 +8,8 @@
         <link rel="stylesheet" src="{{ url_for('static', filename='css/style.css') }}">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <!-- Latest compiled JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <script src="{{ url_for('static', filename='js/jsmed.js') }}"></script>
-         <style>
-            body{background-color : #C6E2FF;}
-        </style>
     </head>
     <body>
         <h1 class="text-center">Projet traitement d'images</h1>
@@ -29,13 +25,13 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="thumbnail">
+                <div id="divfiltrer" class="thumbnail">
                     <img id="filtrer" alt="image filtré..." style="width:300px;height:300px"/>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="thumbnail">
-                      <img id="bruit" alt="image du bruit..." style="width:300px;height:300px"/>
+                    <img id="bruit" alt="image du bruit..." style="width:300px;height:300px"/>
                 </div>
               </div>
             </div>
@@ -50,14 +46,14 @@
                     <p><a href="{{ url_for('upload_file') }}">Index</a></p>
 
                     Choisir taille matrix:
-                    <select id="select" name="taille">
+                    <select id="select" name="size">
                         <option value="3">3x3</option>
                         <option value="5">5x5</option>
                         <option value="9">9x9</option>
                     </select>
 
                     Choisir type de bord:
-                    <select id="select2" name="bord">
+                    <select id="select2" name="style">
                         <option value="reflet">Reflet</option>
                         <option value="mirror">Miroir</option>
                         <option value="symetrique">Symetrique</option>

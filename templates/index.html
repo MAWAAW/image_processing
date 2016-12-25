@@ -11,7 +11,7 @@
         <!-- Latest compiled JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <script src="{{ url_for('static', filename='js/jscript.js') }}"></script>
-         <style>
+        <style>
             body{background-color : #C6E2FF;}
         </style>
     </head>
@@ -24,13 +24,13 @@
 
             <div class="row">
                 <div class="thumbnail">
-                    <img id="myImg" alt="image de base..." style="width:300px;height:300px">
+                    <img id="myImg" src="static/uploads/{{currentImage}}" alt="image de base..." style="width:300px;height:300px">
                 </div>
             </div>
 
             <div class="row">
 
-                <form id="upload-file" action='' method="post" enctype="multipart/form-data" >
+                <form id="upload-file" action="" method="post" enctype="multipart/form-data" >
                     <input id="name" type="file" name="file"/>
                     <input id="upload-file-btn" type="button" value="Upload"/>
                 </form>

@@ -1,8 +1,6 @@
-$(function () {
-    $("#upload-file-btn").click(function () {
-        console.log('ajax upload');
+$(function() {
+    $("#upload-file-btn").click(function() {
         var form_data = new FormData($('#upload-file')[0]);
-        console.log(form_data);
         $.ajax({
             type: 'POST',
             url: '/',
@@ -11,14 +9,15 @@ $(function () {
             cache: true,
             processData: false,
             async: true,
-            success: function (data) {
-                console.log('Success!');
+            success: function(data) {
+                console.log('Success !');
+                $("#myImg").attr('src', 'static/uploads/'+$("#name").val())
             },
             error: function(e) {
                 console.log(e);
             },
-            complete: function (data) {
-                $("#myImg").attr('src', 'static/uploads/'+$("#name").val())
+            complete: function(data) {
+               console.log(data);
             }
         });
     });
