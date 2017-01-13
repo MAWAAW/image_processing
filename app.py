@@ -46,6 +46,11 @@ def median():
         mode = str(request.json['mode'])
         bnoise = str(request.json['bnoise'])
         filtreMedian(CURRENT_IMAGE, size, style, mode, bnoise)
+
+        filelist = [f for f in os.listdir(UPLOAD_FOLDER) if "_" in f]
+        for f in filelist:
+            os.remove(UPLOAD_FOLDER+"/"+f)
+
         return jsonify({'image_name':CURRENT_IMAGE.split(".")[0], 'image_extension':CURRENT_IMAGE.split(".")[1]})
     return render_template('med.html', currentImage=CURRENT_IMAGE)
 
