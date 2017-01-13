@@ -18,6 +18,7 @@ imageLien = str(sys.argv[1])
 sizeMatrix = int(sys.argv[2])
 modeBorders = str(sys.argv[3])  # {reflect, constant, nearest, mirror, wrap}
 booleanNoise = str(sys.argv[4])
+modeNoise = str(sys.argv[5])
 formatImage = imageLien.split(".")[1]
 
 uploadedImage = scipy.misc.imread(imageLien)
@@ -31,13 +32,13 @@ shape = uploadedImage.shape  # nombre de lignes, colones et canal
 noisyAdd = np.zeros(shape, dtype=np.uint8)
 noisyAdd.fill(255)
 
-if booleanNoise == "true":
-    # mode = gaussian, localvar, poisson, pepper, s&p, speckle
-    noisyImage = skimage.util.random_noise(uploadedImage, mode='gaussian', seed=None, clip=True)
+if booleanNoise == "true" :
+    # mode = gaussian , localvar, poisson, pepper, s&p, speckle
+    noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
     scipy.misc.imsave('MedianFilterNoisy.%s' % formatImage, noisyImage)
     imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
 
-elif booleanNoise == "false":
+elif booleanNoise == "false" :
     # choosenImage = clrs.rgb_to_hsv(uploadedImage)
     imageT = scipy.ndimage.median_filter(uploadedImage, size=sizeMatrix, mode=modeBorders)
     # imageT = clrs.hsv_to_rgb(imageT)
