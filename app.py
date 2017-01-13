@@ -17,8 +17,8 @@ def allowed_file(filename):
 # Fonctions executant nos filtres
 def filtreMedian(image_name,size,style,mode,bnoise):
     if image_name != '':
-        os.system("python scriptFilters/median.py static/uploads/"+image_name)
-        print 'TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT? '+str(bnoise)
+        os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+bnoise)
+        print 'TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT? '+bnoise
 
 def filtreConvolution():
     if CURRENT_IMAGE != '':
@@ -44,7 +44,7 @@ def median():
         size = int(request.json['size'])
         style = str(request.json['style'])
         mode = str(request.json['mode'])
-        bnoise = bool(request.json['bnoise'])
+        bnoise = str(request.json['bnoise'])
         filtreMedian(CURRENT_IMAGE, size, style, mode, bnoise)
         return jsonify({'image_name':CURRENT_IMAGE})
     return render_template('med.html', currentImage=CURRENT_IMAGE)
