@@ -9,6 +9,8 @@ image_name = sys.argv[1]
 
 uploadedImage = mpimg.imread(image_name)
 
+print 'LE NOM DE LIMAGE C QUOI????? '+image_name
+
 shape = uploadedImage.shape # nombre de lignes, colones et canal
 
 n_pixel = np.zeros((9)) #tableau de zeros pour l'image non bruitee
