@@ -35,7 +35,7 @@ noisyAdd.fill(255)
 if booleanNoise == "true" :
     # mode = gaussian , localvar, poisson, pepper, s&p, speckle
     noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
-    scipy.misc.imsave('MedianFilterNoisy.%s' % formatImage, noisyImage)
+    scipy.misc.imsave('static/uploads/MedianFilterNoisy.%s' % formatImage, noisyImage)
     imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
 
 elif booleanNoise == "false" :
@@ -53,6 +53,6 @@ elif booleanNoise == "false" :
                 noisyAdd[i, j][2] = originalArray[i, j][2]
     scipy.misc.imsave('MedianFilterNoisy.%s' % formatImage, noisyAdd)
 
-scipy.misc.imsave('MedianFilter.%s' % formatImage, imageT)
+scipy.misc.imsave('static/uploads/MedianFilter.%s' % formatImage, imageT)
 plt.hist(imageT, histtype='barstacked')
-plt.savefig('histogram.png')
+plt.savefig('static/uploads/histogram.png')
