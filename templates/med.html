@@ -52,12 +52,33 @@
                         <option value="9">9x9</option>
                     </select>
 
+                    </br></br>
+
                     Choisir type de bord:
                     <select id="select2" name="style">
                         <option value="reflet">Reflet</option>
                         <option value="mirror">Miroir</option>
                         <option value="symetrique">Symetrique</option>
                     </select>
+
+                    </br></br>
+
+                    Choisir type de bruit:
+                    <select id="select3" name="mode">
+                        <option value="gaussian">Gaussien</option>
+                        <option value="localvar">localvar</option>
+                        <option value="poisson">poisson</option>
+                        <option value="pepper">pepper</option>
+                        <option value="sp">s&p</option>
+                        <option value="speckle">speckle</option>
+                    </select>
+
+                    </br></br>
+
+                    <form id="select4" name="bnoise">
+                      <input type="radio" name="noise" value="with_noise" checked>Avec bruit
+                      <input type="radio" name="noise" value="without_noise">Sans bruit
+                    </form>
 
                 </div>
 
