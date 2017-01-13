@@ -6,11 +6,8 @@ import scipy.stats
 import skimage
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import matplotlib.colors as clrs
 import Image
-import pylab as P
-import colorsys
+
 
 # image.jpg 3 mirror false
 
@@ -20,6 +17,7 @@ modeBorders = str(sys.argv[3])  # {reflect, constant, nearest, mirror, wrap}
 booleanNoise = str(sys.argv[4])
 modeNoise = str(sys.argv[5])
 formatImage = imageLien.split(".")[1]
+nameImage = imageLien.split(".")[0]
 
 uploadedImage = scipy.misc.imread(imageLien)
 
@@ -35,7 +33,7 @@ noisyAdd.fill(255)
 if booleanNoise == "true" :
     # mode = gaussian , localvar, poisson, pepper, s&p, speckle
     noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
-    scipy.misc.imsave('MedianFilterNoisy.%s' % formatImage, noisyImage)
+    scipy.misc.imsave('static/uploads/%s'+'medianNoisy.%s'%nameImage%formatImage, noisyImage)
     imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
 
 elif booleanNoise == "false" :
@@ -51,8 +49,8 @@ elif booleanNoise == "false" :
                 noisyAdd[i, j][0] = originalArray[i, j][0]
                 noisyAdd[i, j][1] = originalArray[i, j][1]
                 noisyAdd[i, j][2] = originalArray[i, j][2]
-    scipy.misc.imsave('MedianFilterNoisy.%s' % formatImage, noisyAdd)
+    scipy.misc.imsave('static/uploads/%s'+'medianNoisy.%s'%nameImage%formatImage, noisyAdd)
 
-scipy.misc.imsave('MedianFilter.%s' % formatImage, imageT)
+scipy.misc.imsave('static/uploads/%s'+'medianFilter.%s'%nameImage%formatImage, imageT)
 plt.hist(imageT, histtype='barstacked')
-plt.savefig('histogram.png')
+plt.savefig('static/uploads/%s'+'_histogram.png'%nameImage)
