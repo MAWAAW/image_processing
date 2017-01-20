@@ -5,6 +5,7 @@ from werkzeug import secure_filename
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tif'])
 CURRENT_IMAGE = ''
+NUM_IMAGE = 0
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -20,9 +21,11 @@ def filtreMedian(image_name,size,style,mode,bnoise):
         os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+bnoise+' '+mode)
         print 'TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+bnoise
 
-def filtreConvolution():
+def filtreConvolution(image_name,size,style):
     if CURRENT_IMAGE != '':
-        print 'execute filtre convolution...'
+        # python moyenneur.py image.png 7 constant
+        os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+ style)
+        print 'TAILLE:' + str(size) + ' STYLE:' + style
 
 # La page d'acceuil
 @app.route('/', methods=['GET', 'POST'])
@@ -46,11 +49,6 @@ def median():
         mode = str(request.json['mode'])
         bnoise = str(request.json['bnoise'])
         filtreMedian(CURRENT_IMAGE, size, style, mode, bnoise)
-
-        filelist = [f for f in os.listdir(UPLOAD_FOLDER) if "_" in f]
-        for f in filelist:
-            os.remove(UPLOAD_FOLDER+"/"+f)
-
         return jsonify({'image_name':CURRENT_IMAGE.split(".")[0], 'image_extension':CURRENT_IMAGE.split(".")[1]})
     return render_template('med.html', currentImage=CURRENT_IMAGE)
 
@@ -58,7 +56,10 @@ def median():
 @app.route('/convolution', methods=['GET', 'POST'])
 def convolution():
     if request.method == 'POST':
-        filtreConvolution()
+        size = int(request.json['size'])
+        style = str(request.json['style'])
+        filtreConvolution(CURRENT_IMAGE, size, style)
+        return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_extension': CURRENT_IMAGE.split(".")[1]})
     return render_template('conv.html', currentImage=CURRENT_IMAGE)
 
 # Lancement du serveur web
