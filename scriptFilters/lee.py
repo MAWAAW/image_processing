@@ -23,4 +23,4 @@ if __name__ == '__main__':
     imageFiltred = lee_filter(uploadedImage,sizeMatrix,modeBorders)
     scipy.misc.imsave(nameImage+'_LeeFilter.%s'%formatImage, imageFiltred)
     plt.hist(imageFiltred.ravel(),histtype='barstacked')
-    plt.savefig('histogram.png')
+    plt.savefig(nameImage+'histogram.png')
