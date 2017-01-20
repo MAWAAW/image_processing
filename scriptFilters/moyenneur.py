@@ -10,6 +10,7 @@ import scipy.misc as sc
 fimage= str(sys.argv[1])
 sizemasq=int(sys.argv[2])#3x3,5x5,...,49x49
 modeBorders = str(sys.argv[3])#{reflect,constant,nearest,mirror, wrap}
+num_image=str(sys.argv[4])
 
 #Filter moyenneur
 X1 = scipy.ndimage.imread(fimage)
@@ -34,7 +35,7 @@ moyenneur=scipy.ndimage.convolve(X1,h,mode=modeBorders)
 #Histogram
 plt.hist(moyenneur,histtype='barstacked')
 plt.title("Histogram")
-plt.savefig(nameimage+"_histogram.png")
+plt.savefig(nameimage+"_histogram"+num_image+".png")
 
 #Noise between two images
 l=X1.shape[0]
@@ -46,8 +47,8 @@ for i in range(l):
 
 
 #save filtered image and noisy image
-sc.imsave(nameimage+"_moyenneurFilter."+formatimage,moyenneur)
-sc.imsave(nameimage+"_moyenneurNoisy."+formatimage,Diff)
+sc.imsave(nameimage+"_moyenneurFilter"+num_image+"."+formatimage,moyenneur)
+sc.imsave(nameimage+"_moyenneurNoisy"+num_image+"."+formatimage,Diff)
 
 
 

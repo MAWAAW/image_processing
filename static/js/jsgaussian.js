@@ -11,10 +11,9 @@ $(function() {
             async: true,
             success: function(resp) {
                 console.log("Success !");
-                console.log(resp.image_name+'ImageFilter.png')
-                $("#filtrer").attr('src', 'static/uploads/'+resp.image_name+'_gaussianFilter.'+resp.image_extension);
-                $("#bruit").attr('src', 'static/uploads/'+resp.image_name+'_gaussianNoisy.'+resp.image_extension);
-                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'_histogram.png');
+                $("#filtrer").attr('src', 'static/uploads/'+resp.image_name+'_gaussianFilter'+resp.image_num+'.'+resp.image_extension);
+                $("#bruit").attr('src', 'static/uploads/'+resp.image_name+'_gaussianNoisy'+resp.image_num+'.'+resp.image_extension);
+                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'_histogram'+resp.image_num+'.png');
             },
             error: function(e) {
                 console.log(e);

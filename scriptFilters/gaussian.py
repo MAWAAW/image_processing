@@ -10,6 +10,7 @@ import scipy.misc as sc
 fimage= str(sys.argv[1])
 sizeSigma = int(sys.argv[2])
 modeBorders = str(sys.argv[3])#{reflect,constant','nearset','mirror','wrap'}
+num_image = str(sys.argv[4])
 
 #Filter Gaussian
 X1 = scipy.ndimage.imread(fimage)
@@ -26,7 +27,7 @@ gaussian = scipy.ndimage.filters.gaussian_filter(X1,sigma=sizeSigma,mode=modeBor
 #Histogram
 plt.hist(gaussian,histtype='barstacked')
 plt.title("Histogram")
-plt.savefig(nameimage+"_histogram.png")
+plt.savefig(nameimage+"_histogram"+num_image+".png")
 
 
 #Noise between two images
@@ -39,8 +40,8 @@ for i in range(l):
 
 
 #save filtered image and noisy image
-sc.imsave(nameimage+"_gaussianFilter."+formatimage,gaussian)
-sc.imsave(nameimage+"_gaussianNoisy."+formatimage,Diff)
+sc.imsave(nameimage+"_gaussianFilter"+num_image+"."+formatimage,gaussian)
+sc.imsave(nameimage+"_gaussianNoisy"+num_image+"."+formatimage,Diff)
 
 
 

@@ -13,9 +13,9 @@ $(function() {
             async: true,
             success: function(resp) {
                 console.log("Success !");
-                $("#filtrer").attr('src', 'static/uploads/'+resp.image_name+'_medianFilter.'+resp.image_extension);
-                $("#bruit").attr('src', 'static/uploads/'+resp.image_name+'_medianNoisy.'+resp.image_extension);
-                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'_histogram.png');
+                $("#filtrer").attr('src', 'static/uploads/'+resp.image_name+'_medianFilter'+resp.image_num+'.'+resp.image_extension);
+                $("#bruit").attr('src', 'static/uploads/'+resp.image_name+'_medianNoisy'+resp.image_num+'.'+resp.image_extension);
+                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'_histogram'+resp.image_num+'.png');
             },
             error: function(e) {
                 console.log(e);
@@ -26,13 +26,3 @@ $(function() {
         });
     });
 });
-
-/*$(function () {
-    $("#process-type-btn").click(function() {
-        $.post('/median',
-        JSON.stringify({ "taille":$("#select").val(), "bord":$("#select2").val() }),
-        function(data, status){
-            alert("Data: " + data.url_filtrer + "\nStatus: " + status);
-        });
-    });
-});*/
