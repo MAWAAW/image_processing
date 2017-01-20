@@ -52,5 +52,5 @@ elif booleanNoise == "false" :
     scipy.misc.imsave(nameImage+'_medianNoisy.'+formatImage, noisyAdd)
 
 scipy.misc.imsave(nameImage+'_medianFilter.'+formatImage, imageT)
-plt.hist(imageT, histtype='barstacked')
+plt.hist(imageT.ravel(), histtype='barstacked')
 plt.savefig(nameImage+'_histogram.png')
