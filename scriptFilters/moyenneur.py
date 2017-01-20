@@ -16,6 +16,8 @@ X1 = scipy.ndimage.imread(fimage)
 nameimage=fimage.split(".")[0]
 formatimage=fimage.split(".")[1]
 
+print(X1.shape)
+
 #Pour voir son effet, on prend la couche rouge d'une image en couleur
 red = X1[:,:,0]
 green = X1[:,:,1]

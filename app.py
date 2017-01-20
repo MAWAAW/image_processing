@@ -19,13 +19,23 @@ def allowed_file(filename):
 def filtreMedian(image_name,size,style,mode,bnoise):
     if image_name != '':
         os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+bnoise+' '+mode)
-        print 'TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+bnoise
+        print 'MEDIAN=> TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+bnoise
 
 def filtreConvolution(image_name,size,style):
     if CURRENT_IMAGE != '':
         # python moyenneur.py image.png 7 constant
         os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+ style)
-        print 'TAILLE:' + str(size) + ' STYLE:' + style
+        print 'MOYENNEUR=> TAILLE:' + str(size) + ' STYLE:' + style
+
+def filtreGaussian(image_name,size,style):
+    if CURRENT_IMAGE != '':
+        os.system('python scriptFilters/gaussian.py static/uploads/'+image_name+' '+str(size)+' '+style)
+        print 'GAUSSIAN=> TAILLE:' + str(size) + ' STYLE:' + style
+
+def filtreLee(image_name, size, style):
+    if CURRENT_IMAGE != '':
+        os.system('python scriptFilters/lee.py static/uploads/' + image_name + ' ' + str(size) + ' ' + style)
+        print 'LEE=> TAILLE:' + str(size) + ' STYLE:' + style
 
 # La page d'acceuil
 @app.route('/', methods=['GET', 'POST'])
@@ -61,6 +71,27 @@ def convolution():
         filtreConvolution(CURRENT_IMAGE, size, style)
         return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_extension': CURRENT_IMAGE.split(".")[1]})
     return render_template('conv.html', currentImage=CURRENT_IMAGE)
+
+# View du filtre de gaussian
+@app.route('/gaussian', methods=['GET', 'POST'])
+def gaussian():
+    if request.method == 'POST':
+        size = int(request.json['size'])
+        style = str(request.json['style'])
+        filtreGaussian(CURRENT_IMAGE, size, style)
+        return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_extension': CURRENT_IMAGE.split(".")[1]})
+    return render_template('gaussian.html', currentImage=CURRENT_IMAGE)
+
+# View du filtre de lee
+@app.route('/lee', methods=['GET', 'POST'])
+def lee():
+    if request.method == 'POST':
+        size = int(request.json['size'])
+        style = str(request.json['style'])
+        filtreLee(CURRENT_IMAGE, size, style)
+        return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_extension': CURRENT_IMAGE.split(".")[1]})
+    return render_template('lee.html', currentImage=CURRENT_IMAGE)
+
 
 # Lancement du serveur web
 if __name__ == '__main__':

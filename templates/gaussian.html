@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>HTML5 / jQuery</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" src="{{ url_for('static', filename='css/style.css') }}">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <script src="{{ url_for('static', filename='js/jsgaussian.js') }}"></script>
+         <style>
+            body{background-color : #C6E2FF;}
+        </style>
+    </head>
+    <body>
+        <h1 class="text-center">Projet traitement d'images</h1>
+
+        <hr>
+
+        <div class="container">
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="thumbnail">
+                    <img id="myImg" src="static/uploads/{{currentImage}}" alt="image de base..." style="width:300px;height:300px">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="thumbnail">
+                    <img id="filtrer" alt="image filtré..." style="width:300px;height:300px"/>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="thumbnail">
+                      <img id="bruit" alt="image du bruit..." style="width:300px;height:300px"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <form id="process-type" action='' method="post">
+                        <input id="process-type-btn" type="button" name="gaussian" value="Gaussian">
+                    </form>
+
+                    <p><a href="{{ url_for('upload_file') }}">Index</a></p>
+
+                    Choisir sigma:
+                    <select id="select" name="size">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+
+                    </br></br>
+
+                    Choisir type de bord:
+                    <select id="select2" name="style">
+                        <option value="reflect">Reflet</option>
+                        <option value="constant">Constant</option>
+                        <option value="nearest">Proches</option>
+                        <option value="mirror">Miroir</option>
+                        <option value="wrap">Enveloppe</option>
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img id="histogram" alt="image histogramme..." style="width:300px;height:300px"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
