@@ -13,7 +13,7 @@ $(function() {
                 console.log("Success !");
                 console.log(resp.image_name+'ImageFilter.png')
                 $("#filtrer").attr('src', 'static/uploads/'+resp.image_name+'_LeeFilter'+resp.image_num+'.'+resp.image_extension);
-                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'_histogram'+resp.image_num+'.png');
+                $("#histogram").attr('src', 'static/uploads/'+resp.image_name+'histogram'+resp.image_num+'.png');
             },
             error: function(e) {
                 console.log(e);
