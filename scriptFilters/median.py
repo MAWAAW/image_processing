@@ -14,8 +14,8 @@ import Image
 imageLien = str(sys.argv[1])
 sizeMatrix = int(sys.argv[2])
 modeBorders = str(sys.argv[3])  # {reflect, constant, nearest, mirror, wrap}
-booleanNoise = str(sys.argv[4])
-modeNoise = str(sys.argv[5])
+noise_dosage = float(sys.argv[4])
+modeNoise = str(sys.argv[5]) # mode = gaussian, poisson, pepper, s&p, speckle
 num_image = str(sys.argv[6])
 formatImage = imageLien.split(".")[1]
 nameImage = imageLien.split(".")[0]
@@ -31,26 +31,14 @@ shape = uploadedImage.shape  # nombre de lignes, colones et canal
 noisyAdd = np.zeros(shape, dtype=np.uint8)
 noisyAdd.fill(255)
 
-if booleanNoise == "true" :
-    # mode = gaussian , localvar, poisson, pepper, s&p, speckle
-    noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
-    scipy.misc.imsave(nameImage+'_medianNoisy'+num_image+'.'+formatImage, noisyImage)
-    imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
+if modeNoise == "gaussian" or modeNoise == "speckle" :
+    noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True, var=noise_dosage)
+elif modeNoise == "salt" or modeNoise == "pepper" or modeNoise == "salt & pepper" :
+    noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True, amount=noise_dosage)
+else : noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
 
-elif booleanNoise == "false" :
-    # choosenImage = clrs.rgb_to_hsv(uploadedImage)
-    imageT = scipy.ndimage.median_filter(uploadedImage, size=sizeMatrix, mode=modeBorders)
-    # imageT = clrs.hsv_to_rgb(imageT)
-    filtredArray = np.asarray(imageT)
-
-    for i in range(shape[0] - 1):
-        for j in range(shape[1] - 1):
-            difference = originalArray[i, j][1] - filtredArray[i, j][1]
-            if difference < -20 or difference > 20:
-                noisyAdd[i, j][0] = originalArray[i, j][0]
-                noisyAdd[i, j][1] = originalArray[i, j][1]
-                noisyAdd[i, j][2] = originalArray[i, j][2]
-    scipy.misc.imsave(nameImage+'_medianNoisy'+num_image+'.'+formatImage, noisyAdd)
+scipy.misc.imsave(nameImage+'_medianNoisy'+num_image+'.'+formatImage, noisyImage)
+imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
 
 scipy.misc.imsave(nameImage+'_medianFilter'+num_image+'.'+formatImage, imageT)
 plt.hist(imageT.ravel(), histtype='barstacked')
