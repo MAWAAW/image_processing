@@ -12,15 +12,21 @@ NUM_IMAGE = 0
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+if NUM_IMAGE > 5:
+    for fileName in os.listdir(UPLOAD_FOLDER):
+        os.remove(UPLOAD_FOLDER + "/" + fileName)
+        print 'LOL ALORS C COOL'
+        NUM_IMAGE = 0
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 # Fonctions executant nos filtres
-def filtreMedian(image_name,size,style,mode,bnoise,num):
+def filtreMedian(image_name,size,style,mode,noise_dosage,num):
     if image_name != '':
-        os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+bnoise+' '+mode+' '+str(num))
-        print 'MEDIAN=> TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+bnoise
+        os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(noise_dosage)+' '+mode+' '+str(num))
+        print 'MEDIAN=> TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+str(noise_dosage)
 
 def filtreConvolution(image_name,size,style,num):
     if CURRENT_IMAGE != '':
@@ -42,13 +48,6 @@ def filtreLee(image_name, size, style,num):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     global CURRENT_IMAGE
-    '''
-    global NUM_IMAGE
-    if os.listdir(UPLOAD_FOLDER) != "":
-        for fileName in os.listdir(UPLOAD_FOLDER):
-            os.remove(UPLOAD_FOLDER + "/" + fileName)
-            NUM_IMAGE=0
-    '''
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
@@ -66,9 +65,9 @@ def median():
         size = int(request.json['size'])
         style = str(request.json['style'])
         mode = str(request.json['mode'])
-        bnoise = str(request.json['bnoise'])
+        noise_dosage = float(request.json['noise_dosage'])
         NUM_IMAGE = NUM_IMAGE + 1
-        filtreMedian(CURRENT_IMAGE, size, style, mode, bnoise, NUM_IMAGE)
+        filtreMedian(CURRENT_IMAGE, size, style, mode, noise_dosage, NUM_IMAGE)
         return jsonify({'image_name':CURRENT_IMAGE.split(".")[0], 'image_num':NUM_IMAGE,'image_extension':CURRENT_IMAGE.split(".")[1]})
     return render_template('med.html', currentImage=CURRENT_IMAGE)
 

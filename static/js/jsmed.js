@@ -1,12 +1,14 @@
 $(function() {
     $("#process-type-btn").click(function() {
-        console.log('NAME::: '+$("input[name=bnoise]:checked").val());
+        $("#filtrer").attr('src','static/ajax-loader.gif');
+        $("#bruit").attr('src','static/ajax-loader.gif');
+        $("#histogram").attr('src','static/ajax-loader.gif');
         $.ajax({
             type: 'POST',
             url: '/median',
             contentType: 'application/json',
             data: JSON.stringify({ "size":$("#select").val(), "style":$("#select2").val(),
-                                   "mode":$("#select3").val(), "bnoise":$("input[name=bnoise]:checked").val() }),
+                                   "mode":$("#select3").val(), "noise_dosage":$("input[name=rangeInput]").val() }),
             dataType: 'json',
             cache: true,
             processData: false,
@@ -24,5 +26,11 @@ $(function() {
                 console.log(data);
             }
         });
+    });
+});
+
+$(function () {
+    $('#rangeInput').on('input change', function () {
+        $('#rangeText').text($('#rangeInput').val());
     });
 });
