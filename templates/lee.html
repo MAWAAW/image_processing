@@ -35,7 +35,7 @@
               </div>
               <div class="col-md-4">
                 <div class="thumbnail">
-                    <img id="histogram" alt="image histogramme..." style="width:300px;height:300px"/>
+                    <img id="bruit" alt="image bruit..." style="width:300px;height:300px"/>
                 </div>
               </div>
             </div>
@@ -67,6 +67,31 @@
                         <option value="wrap">Enveloppe</option>
                     </select>
 
+                    </br></br>
+
+                    Choisir type de bruit:
+                    <select id="select3" name="mode">
+                        <option value="gaussian">gaussian</option>
+                        <option value="localvar">localvar</option>
+                        <option value="poisson">poisson</option>
+                        <option value="speckle">speckle</option>
+                        <option value="pepper">pepper</option>
+                        <option value="salt">salt</option>
+                        <option value="s&p">salt&pepper</option>
+                    </select>
+
+                    </br></br>
+
+                    Dosage du bruit:
+                    <input type="range" id="rangeInput" name="rangeInput" value="0.5" min="0.0" max="1.0" step="0.01" style="width:300px;">
+                    <label id="rangeText">
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img id="histogram" alt="image histogramme..." style="width:300px;height:300px"/>
+                    </div>
                 </div>
 
             </div>

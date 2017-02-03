@@ -1,5 +1,8 @@
 $(function() {
     $("#process-type-btn").click(function() {
+        $("#filtrer").attr('src','static/ajax-loader.gif');
+        $("#bruit").attr('src','static/ajax-loader.gif');
+        $("#histogram").attr('src','static/ajax-loader.gif');
         $.ajax({
             type: 'POST',
             url: '/convolution',

@@ -49,22 +49,6 @@
 
                     <p><a href="{{ url_for('upload_file') }}">Index</a></p>
 
-                    Choisir sigma:
-                    <select id="select" name="size">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-
-                    </br></br>
-
                     Choisir type de bord:
                     <select id="select2" name="style">
                         <option value="reflect">Reflet</option>
@@ -73,6 +57,12 @@
                         <option value="mirror">Miroir</option>
                         <option value="wrap">Enveloppe</option>
                     </select>
+
+                    </br></br>
+
+                    Choisir sigma:
+                    <input type="range" id="rangeInput" name="rangeInput" value="1" min="1" max="100" step="1" style="width:300px;">
+                    <label id="rangeText">
 
                 </div>
 

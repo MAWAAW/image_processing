@@ -12,12 +12,6 @@ NUM_IMAGE = 0
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-if NUM_IMAGE > 5:
-    for fileName in os.listdir(UPLOAD_FOLDER):
-        os.remove(UPLOAD_FOLDER + "/" + fileName)
-        print 'LOL ALORS C COOL'
-        NUM_IMAGE = 0
-
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -30,7 +24,6 @@ def filtreMedian(image_name,size,style,mode,noise_dosage,num):
 
 def filtreConvolution(image_name,size,style,num):
     if CURRENT_IMAGE != '':
-        # python moyenneur.py image.png 7 constant
         os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+ style+' '+str(num))
         print 'MOYENNEUR=> TAILLE:' + str(size) + ' STYLE:' + style
 
@@ -39,9 +32,9 @@ def filtreGaussian(image_name,size,style,num):
         os.system('python scriptFilters/gaussian.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(num))
         print 'GAUSSIAN=> TAILLE:' + str(size) + ' STYLE:' + style
 
-def filtreLee(image_name, size, style,num):
+def filtreLee(image_name,size,style,num,mode,noise_dosage):
     if CURRENT_IMAGE != '':
-        os.system('python scriptFilters/lee.py static/uploads/' + image_name + ' ' + str(size) + ' ' + style+' '+str(num))
+        os.system('python scriptFilters/lee.py static/uploads/' + image_name + ' ' + str(size) + ' ' + style+' '+str(num)+' '+mode+' '+str(noise_dosage))
         print 'LEE=> TAILLE:' + str(size) + ' STYLE:' + style
 
 # La page d'acceuil
@@ -55,7 +48,14 @@ def upload_file():
             CURRENT_IMAGE = filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', filename=filename))
-    return render_template('index.html')
+    else:
+        global NUM_IMAGE
+        if NUM_IMAGE > 5:
+            for fileName in os.listdir(UPLOAD_FOLDER):
+                if filename != CURRENT_IMAGE:
+                    os.remove(UPLOAD_FOLDER + "/" + fileName)
+            NUM_IMAGE = 0
+        return render_template('index.html', currentImage=CURRENT_IMAGE)
 
 # View du filtre median
 @app.route('/median', methods=['GET', 'POST'])
@@ -71,7 +71,7 @@ def median():
         return jsonify({'image_name':CURRENT_IMAGE.split(".")[0], 'image_num':NUM_IMAGE,'image_extension':CURRENT_IMAGE.split(".")[1]})
     return render_template('med.html', currentImage=CURRENT_IMAGE)
 
-# View du filtre de convolution 2D
+# View du filtre du moyenneur
 @app.route('/convolution', methods=['GET', 'POST'])
 def convolution():
     global NUM_IMAGE
@@ -100,13 +100,15 @@ def gaussian():
 def lee():
     global NUM_IMAGE
     if request.method == 'POST':
+        print 'POST LEEEEEEEE'
         size = int(request.json['size'])
         style = str(request.json['style'])
+        mode = str(request.json['mode'])
+        noise_dosage = float(request.json['noise_dosage'])
         NUM_IMAGE = NUM_IMAGE + 1
-        filtreLee(CURRENT_IMAGE, size, style, NUM_IMAGE)
+        filtreLee(CURRENT_IMAGE, size, style, NUM_IMAGE, mode, noise_dosage)
         return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_num':NUM_IMAGE, 'image_extension': CURRENT_IMAGE.split(".")[1]})
     return render_template('lee.html', currentImage=CURRENT_IMAGE)
-
 
 # Lancement du serveur web
 if __name__ == '__main__':
