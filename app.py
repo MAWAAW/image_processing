@@ -40,6 +40,8 @@ def filtreLee(image_name,size,style,num,mode,noise_dosage):
 # La page d'acceuil
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    global NUM_IMAGE
+    print NUM_IMAGE
     global CURRENT_IMAGE
     if request.method == 'POST':
         file = request.files['file']
@@ -49,10 +51,10 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', filename=filename))
     else:
-        global NUM_IMAGE
+        #global NUM_IMAGE
         if NUM_IMAGE > 5:
             for fileName in os.listdir(UPLOAD_FOLDER):
-                if filename != CURRENT_IMAGE:
+                if fileName != CURRENT_IMAGE:
                     os.remove(UPLOAD_FOLDER + "/" + fileName)
             NUM_IMAGE = 0
         return render_template('index.html', currentImage=CURRENT_IMAGE)
