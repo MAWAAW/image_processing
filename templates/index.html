@@ -5,20 +5,15 @@
         <title>HTML5 / jQuery</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" src="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <script src="{{ url_for('static', filename='js/jscript.js') }}"></script>
-        <style>
-            body{background-color : #C6E2FF;}
-        </style>
     </head>
     <body>
-        <h1 class="text-center">Entrée du projet</h1>
-
-        <hr>
+        {% include "header.html" %}
 
         <div class="container">
 
@@ -41,6 +36,8 @@
                 <p><a href="{{ url_for('lee') }}">Lee</a></p>
 
             </div>
+
+            {% include "footer.html" %}
 
         </div>
     </body>
