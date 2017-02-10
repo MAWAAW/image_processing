@@ -1,12 +1,12 @@
 import sys
 import numpy as np
 import scipy.ndimage
-import scipy.misc
-import scipy.stats
 import skimage
+from skimage import color
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import Image
+import cv2
 
 
 # image.jpg 3 mirror false
@@ -38,8 +38,30 @@ elif modeNoise == "salt" or modeNoise == "pepper" or modeNoise == "s&p" :
 else : noisyImage = skimage.util.random_noise(uploadedImage, mode=modeNoise, seed=None, clip=True)
 
 scipy.misc.imsave(nameImage+'_medianNoisy'+num_image+'.'+formatImage, noisyImage)
-imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
+
+img_noisyImage = scipy.misc.imread(nameImage+'_medianNoisy'+num_image+'.'+formatImage)
+
+if (uploadedImage.ndim == 3):
+    img_out = cv2.cvtColor(img_noisyImage, cv2.COLOR_BGR2YUV)
+    y = img_out[:, :, 0]
+    u = img_out[:, :, 1]
+    v = img_out[:, :, 2]
+
+    yT = scipy.ndimage.median_filter(y, size=sizeMatrix, mode=modeBorders)
+
+    img_YUV = (np.dstack([yT, u, v])).astype(np.uint8)
+    imageT = cv2.cvtColor(img_YUV, cv2.COLOR_YUV2BGR, 3)
+
+    color = ('b', 'g', 'r')
+    for channel, col in enumerate(color):
+        hist = cv2.calcHist([imageT], [channel], None, [256], [0, 256])
+        plt.plot(hist, color=col)
+        plt.xlim([0, 256])
+    plt.savefig(nameImage+'_histogram'+num_image+'.png')
+
+else:
+    imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
+    plt.hist(imageT.ravel(), histtype='barstacked')
+    plt.savefig(nameImage+'_histogram'+num_image+'.png')
 
 scipy.misc.imsave(nameImage+'_medianFilter'+num_image+'.'+formatImage, imageT)
-plt.hist(imageT.ravel(), histtype='barstacked')
-plt.savefig(nameImage+'_histogram'+num_image+'.png')
