@@ -64,10 +64,4 @@ else:
     plt.hist(imageT.ravel(), histtype='barstacked')
     plt.savefig(nameImage+'_histogram'+num_image+'.png')
 
-
-imageT = scipy.ndimage.median_filter(noisyImage, size=sizeMatrix, mode=modeBorders)
-'''
 scipy.misc.imsave(nameImage+'_medianFilter'+num_image+'.'+formatImage, imageT)
-plt.hist(imageT.ravel(), histtype='barstacked')
-plt.savefig(nameImage+'_histogram'+num_image+'.png')
-'''
