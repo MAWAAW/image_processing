@@ -3,6 +3,7 @@ import os.path
 from flask import Flask, request, redirect, url_for, render_template, jsonify
 from werkzeug import secure_filename
 
+# Variables globales
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tif'])
 CURRENT_IMAGE = ''
@@ -23,17 +24,17 @@ def filtreMedian(image_name,size,style,mode,noise_dosage,num):
         print 'MEDIAN=> TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+str(noise_dosage)
 
 def filtreConvolution(image_name,size,style,num):
-    if CURRENT_IMAGE != '':
+    if image_name != '':
         os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+ style+' '+str(num))
         print 'MOYENNEUR=> TAILLE:' + str(size) + ' STYLE:' + style
 
 def filtreGaussian(image_name,size,style,num):
-    if CURRENT_IMAGE != '':
+    if image_name != '':
         os.system('python scriptFilters/gaussian.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(num))
         print 'GAUSSIAN=> TAILLE:' + str(size) + ' STYLE:' + style
 
 def filtreLee(image_name,size,style,num,mode,noise_dosage):
-    if CURRENT_IMAGE != '':
+    if image_name != '':
         os.system('python scriptFilters/lee.py static/uploads/' + image_name + ' ' + str(size) + ' ' + style+' '+str(num)+' '+mode+' '+str(noise_dosage))
         print 'LEE=> TAILLE:' + str(size) + ' STYLE:' + style
 
@@ -41,7 +42,6 @@ def filtreLee(image_name,size,style,num,mode,noise_dosage):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     global NUM_IMAGE
-    print NUM_IMAGE
     global CURRENT_IMAGE
     if request.method == 'POST':
         file = request.files['file']
@@ -51,8 +51,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', filename=filename))
     else:
-        #global NUM_IMAGE
-        if NUM_IMAGE > 5:
+        if NUM_IMAGE!=0:
             for fileName in os.listdir(UPLOAD_FOLDER):
                 if fileName != CURRENT_IMAGE:
                     os.remove(UPLOAD_FOLDER + "/" + fileName)

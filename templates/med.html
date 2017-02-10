@@ -17,23 +17,7 @@
 
         <div class="container">
 
-            <div class="row">
-              <div class="col-md-4">
-                <div class="thumbnail">
-                    <img id="myImg" src="static/uploads/{{currentImage}}" alt="image de base..." style="width:300px;height:300px">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div id="divfiltrer" class="thumbnail">
-                    <img id="filtrer" alt="image filtré..." style="width:300px;height:300px"/>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div id="divbruit" class="thumbnail">
-                    <img id="bruit" alt="image du bruit..." style="width:300px;height:300px"/>
-                </div>
-              </div>
-            </div>
+            {% include "block_images.html" %}
 
             <div class="row">
                 <div class="col-md-8">
@@ -83,11 +67,7 @@
 
                 </div>
 
-                <div class="col-md-4">
-                    <div id="divhistogram" class="thumbnail">
-                        <img id="histogram" alt="image histogramme..." style="width:300px;height:300px"/>
-                    </div>
-                </div>
+                {% include "block_hist.html" %}
             </div>
 
         </div>
