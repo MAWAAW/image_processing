@@ -7,7 +7,8 @@ $(function() {
             type: 'POST',
             url: '/convolution',
             contentType: 'application/json',
-            data: JSON.stringify({ "size":$("#select").val(), "style":$("#select2").val() }),
+            data: JSON.stringify({ "size":$("#select").val(), "style":$("#select2").val(),
+                                    "mode":$("#select3").val(), "noise_dosage":$("input[name=rangeInput]").val()}),
             dataType: 'json',
             cache: true,
             processData: false,
@@ -25,5 +26,11 @@ $(function() {
                 console.log(data);
             }
         });
+    });
+});
+
+$(function () {
+    $('#rangeInput').on('input change', function () {
+        $('#rangeText').text($('#rangeInput').val());
     });
 });

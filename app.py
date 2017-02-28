@@ -23,14 +23,14 @@ def filtreMedian(image_name,size,style,mode,noise_dosage,num):
         os.system('python scriptFilters/median.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(noise_dosage)+' '+mode+' '+str(num))
         print 'MEDIAN=> TAILLE:'+str(size)+' STYLE:'+style+' MODE:'+mode+' BRUIT:'+str(noise_dosage)
 
-def filtreConvolution(image_name,size,style,num):
+def filtreConvolution(image_name,size,style,mode,noise_dosage,num):
     if image_name != '':
-        os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+ style+' '+str(num))
+        os.system('python scriptFilters/moyenneur.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(noise_dosage)+' '+mode+' '+str(num))
         print 'MOYENNEUR=> TAILLE:' + str(size) + ' STYLE:' + style
 
-def filtreGaussian(image_name,size,style,num):
+def filtreGaussian(image_name,size,style,mode,noise_dosage,num):
     if image_name != '':
-        os.system('python scriptFilters/gaussian.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(num))
+        os.system('python scriptFilters/gaussian.py static/uploads/'+image_name+' '+str(size)+' '+style+' '+str(noise_dosage)+' '+mode+' '+str(num))
         print 'GAUSSIAN=> TAILLE:' + str(size) + ' STYLE:' + style
 
 def filtreLee(image_name,size,style,num,mode,noise_dosage):
@@ -79,8 +79,10 @@ def convolution():
     if request.method == 'POST':
         size = int(request.json['size'])
         style = str(request.json['style'])
+        mode = str(request.json['mode'])
+        noise_dosage = float(request.json['noise_dosage'])
         NUM_IMAGE = NUM_IMAGE + 1
-        filtreConvolution(CURRENT_IMAGE, size, style, NUM_IMAGE)
+        filtreConvolution(CURRENT_IMAGE, size, style, mode, noise_dosage, NUM_IMAGE)
         return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_num':NUM_IMAGE, 'image_extension': CURRENT_IMAGE.split(".")[1]})
     return render_template('conv.html', currentImage=CURRENT_IMAGE)
 
@@ -91,8 +93,10 @@ def gaussian():
     if request.method == 'POST':
         size = int(request.json['size'])
         style = str(request.json['style'])
+        mode = str(request.json['mode'])
+        noise_dosage = float(request.json['noise_dosage'])
         NUM_IMAGE = NUM_IMAGE + 1
-        filtreGaussian(CURRENT_IMAGE, size, style, NUM_IMAGE)
+        filtreGaussian(CURRENT_IMAGE, size, style, mode, noise_dosage, NUM_IMAGE)
         return jsonify({'image_name': CURRENT_IMAGE.split(".")[0], 'image_num':NUM_IMAGE, 'image_extension': CURRENT_IMAGE.split(".")[1]})
     return render_template('gaussian.html', currentImage=CURRENT_IMAGE)
 

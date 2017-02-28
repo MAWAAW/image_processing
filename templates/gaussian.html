@@ -26,8 +26,10 @@
                         <input id="process-type-btn" type="button" name="gaussian" value="Gaussian">
                     </form>
 
+                    </br>
+
                     Choisir type de bord:
-                    <select id="select2" name="style">
+                    <select class="form-control" id="select2" name="style" style="width:300px;">
                         <option value="reflect">Reflet</option>
                         <option value="constant">Constant</option>
                         <option value="nearest">Proches</option>
@@ -35,7 +37,24 @@
                         <option value="wrap">Enveloppe</option>
                     </select>
 
-                    </br></br>
+                    </br>
+
+                    Choisir type de bruit:
+                    <select class="form-control" id="select3" name="mode" style="width:300px;">
+                        <option value="gaussian">gaussian</option>
+                        <option value="poisson">poisson</option>
+                        <option value="speckle">speckle</option>
+                        <option value="pepper">pepper</option>
+                        <option value="salt">salt</option>
+                        <option value="s&p">salt&pepper</option>
+                    </select>
+
+                    </br>
+
+                    Dosage du bruit (0.0 à 1.0) :
+                    <input type="range" id="rangeInput2" name="rangeInput2" value="0.1" min="0.01" max="1.0" step="0.01" style="width:300px;">
+
+                    </br>
 
                     Choisir sigma:
                     <input type="range" id="rangeInput" name="rangeInput" value="1" min="1" max="100" step="1" style="width:300px;">
