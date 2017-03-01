@@ -117,7 +117,7 @@ def lee():
 
 # Lancement du serveur web
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 # Nettoyage du dossier uploads quand on ferme le serveur
 for fileName in os.listdir(UPLOAD_FOLDER):
