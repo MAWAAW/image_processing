@@ -30,7 +30,7 @@ $(function() {
 });
 
 $(function () {
-    $('#rangeInput').on('input change', function () {
-        $('#rangeText').text($('#rangeInput').val());
+    $('#rangeInput2').on('input change', function () {
+        $('#rangeText').text($('#rangeInput2').val());
     });
 });

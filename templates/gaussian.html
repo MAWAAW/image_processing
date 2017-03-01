@@ -23,7 +23,7 @@
                 <div class="col-md-8">
 
                     <form id="process-type" action='' method="post">
-                        <input id="process-type-btn" type="button" name="gaussian" value="Gaussian">
+                        <input class="btn btn-primary" id="process-type-btn" type="button" name="gaussian" value="Gaussian">
                     </form>
 
                     </br>
@@ -51,13 +51,13 @@
 
                     </br>
 
-                    Dosage du bruit (0.0 à 1.0) :
-                    <input type="range" id="rangeInput2" name="rangeInput2" value="0.1" min="0.01" max="1.0" step="0.01" style="width:300px;">
+                    Choisir sigma:</br>
+                    <input class="form-control" type="number" id="rangeInput" name="rangeInput" value="1" min="1" max="100" style="width:300px;">
 
                     </br>
 
-                    Choisir sigma:
-                    <input type="range" id="rangeInput" name="rangeInput" value="1" min="1" max="100" step="1" style="width:300px;">
+                    Dosage du bruit (0.0 à 1.0) :
+                    <input type="range" id="rangeInput2" name="rangeInput2" value="0.1" min="0.01" max="1.0" step="0.01" style="width:300px;">
                     <label id="rangeText">
 
                 </div>
