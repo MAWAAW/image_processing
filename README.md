@@ -1,4 +1,5 @@
-# Marche à suivre pour lancer l'application (le plus simple c'est sur Linux)
+# Marche à suivre pour lancer l'application
+### (le plus simple c'est sur Linux)
 ----
 1. Installer Python 2.7+
 2. Installer le gestionnaire de paquets pip
